@@ -1,5 +1,7 @@
-﻿using ETickets.Models;
+﻿using ETickets.IRepository;
+using ETickets.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
 
 namespace ETickets.Controllers
@@ -7,15 +9,31 @@ namespace ETickets.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IMovieRepository movieRepository;
+        ICinemaRepository cinemaRepository;
+        ICategoryRepository categoryRepository;
+        IActorRepository actorRepository;
+      
+        public HomeController(ILogger<HomeController> logger, IMovieRepository movieRepository, ICinemaRepository cinemaRepository, ICategoryRepository categoryRepository, IActorRepository actorRepository)
         {
             _logger = logger;
+            this.movieRepository = movieRepository;
+            this.cinemaRepository = cinemaRepository;
+            this.categoryRepository = categoryRepository;
+            this.actorRepository = actorRepository;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var listOfMovies = movieRepository.ReadAllWithCinemaAndCat();
+
+            var movieStatusList = new SelectList(Enum.GetValues(typeof(ETickets.Data.Enums.MovieStatus)));
+
+            // Pass movies and SelectList to the view
+
+            ViewData["MovieStatusList"] = movieStatusList;
+
+            return View("Index",listOfMovies);
         }
 
         public IActionResult Privacy()
@@ -28,5 +46,6 @@ namespace ETickets.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }
