@@ -1,0 +1,46 @@
+﻿@model ETickets.ViewModel.CinemaVM
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <!-- Include any external CSS files -->
+    <link rel="stylesheet" href="/css/New.css">
+    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-KYd0BKFip0N3ZWgJfKcxKz4VqOen+LeThInO+RE4BwZZ/zByMmZX5DvduBddajVoz/SqLxhGS+mra2TcdWVrsQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+</head>
+<body class="background" style="margin-top:110px;">
+    <form asp-controller="Cinema" asp-action="SaveEdit" asp-validation-summary="All" method="post">
+        <input hidden name="Id" value="@Model.Id" />
+        <h4>
+            <label asp-for="Name" class="color">Name</label>
+        </h4>
+        <input class="form-control item-background w-50 text-light" asp-for="Name" placeholder="Enter New Name" />
+        <br />
+        <h4>
+            <label asp-for="Description" class="color">Description</label>
+        </h4>
+        <input class="form-control item-background w-50 text-light" asp-for="Description" placeholder="Enter New Description" />
+        <br />
+        <h4>
+            <label asp-for="CinemaLogo" class="color">Cinema Logo</label>
+        </h4>
+        <input class="form-control item-background w-50 text-light" asp-for="CinemaLogo"  />
+        <br />
+        <h4>
+            <label asp-for="Address" class="color">Address</label>
+        </h4>
+        <input class="form-control item-background w-50 text-light" asp-for="Address" placeholder="Enter New Address" />
+        <br />
+
+        <button type="submit" class="btn btn-outline-light btn-background" id="submitBtn">Save</button>
+
+    </form>
+</body>
+</html>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

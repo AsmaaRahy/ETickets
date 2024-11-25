@@ -1,0 +1,107 @@
+﻿@using ETickets.Data.Enums
+@model List<Movie>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <!-- Include any external CSS files -->
+    <link rel="stylesheet" href="~/css/New.css">
+    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-KYd0BKFip0N3ZWgJfKcxKz4VqOen+LeThInO+RE4BwZZ/zByMmZX5DvduBddajVoz/SqLxhGS+mra2TcdWVrsQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+</head>
+<body class="">
+    <section class="home" style="height:1000px;">
+        <section class="banner-area banner">
+            <div class="container containerHome">
+                <div class="row homeContent">
+                    <div class="col-xl-6 col-lg-8">
+                        <div class="banner-content ">
+                            <h6 class="name">Movflx</h6>
+                            <h1 class="homeTitle animate__animated animate__fadeInUp d-inline" data-wow-delay=".4s" data-wow-duration="1.8s">Unlimited
+                                <span>Movie</span>, TVs Shows, &amp;More.</h1>
+                            <div class="banner-meta">
+                                <ul>
+                                    <li class="quality"><span>Pg 18</span><span class="white">hd</span></li>
+                                    <li class="category">
+                                        <a href="#" class="a white">Romance,</a><a href="#" class="a white">Drama</a>
+                                        </li>
+                                        <li class="release-time"><span><i class="far fa-calendar-alt"></i> 2025</span>
+                                            <span><i class="far fa-clock"></i> 128 min</span>
+                                        </li>
+                                </ul>
+                            </div>
+                                <a href="https://www.youtube.com/watch?v=R2gbPxeNk2E" class="banner-btn btn white">
+                                 <i class=" fa-solid fa-play">
+
+                                    </i> WATCH NOW
+                                </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="homeSec2 background">
+            <div class="container" style="padding-top:70px;">
+                <h2 class="secTitle" style="margin-bottom:50px;">Upcoming Movies</h2>
+                <div class="row">
+                     @{for (int i = 0; i < 12; i++)
+                    {
+                        var movie = Model[i];
+                        <div class="item">
+                            <div class="img">
+                                    <a href="/Movie/Details/@Model[i].Id">
+                                    
+                                <img src="~/images/movies/@Model[i].ImgUrl" alt="" class=""/>
+                                    </a>
+                            </div>
+                                
+                                <div class="content">
+                                    <div class="top">
+                                        <h5 class="movieName">
+                                            <a href="/Movie/Details/@Model[i].Id" class="a">@Model[i].Name</a>
+                                        </h5>
+                                        <p style="color:white;">
+                                        @Model[i].Cinema.Name Cinema
+                                        </p>
+                                        <span>@Model[i].EndDate</span>
+                                    </div>
+                                </div>
+
+                                
+                            </div>
+                        
+                    } }
+                   
+                </div>
+            </div>
+            <div class="homeSec3">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="left">
+                            <h4>BOOK YOUR TICKET NOW</h4>
+                            <p>
+                                Enter your email to create or restart your membership.
+                            </p>
+                        </div>
+                        <div class="right">
+                            <form action="#" class="newsletter-form">
+                                <input type="email" required="" placeholder="Enter your email">
+                                <a href=""><button>GET STARTED</button></a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+
+    
+
+</body>
+
+</html>

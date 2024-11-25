@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ETickets</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ETickets.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/New.css">
+    <link rel="stylesheet" href="/css/Shared.css">
+</head>
+<body>
+    <header>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="~/images/logo.png" alt="Movflix Logo">
+            
+        </div>
+        
+        <ul class="nav-links">
+            <li><a href="/Home/Index" class="active">HOME</a></li>
+            <li><a href="/Movie/Index">MOVIES</a></li>
+            <li><a href="/Cinema/Index">CINEMAS</a></li>
+            <li><a href="/Category/Index">CATEGORIES</a></li>
+            @* <li><a href="#">Blog</a></li>
+            <li><a href="#">Contacts</a></li> *@
+        </ul>
+        <div class="nav-actions">
+            <div class="search">
+                @* <span>&#x1F50D;</span> *@
+                <form asp-controller="Movie" asp-action="Search" method="get" class="d-flex">
+                    <input type="text" name="query" placeholder="Search movies..." class="form-control me-2" />
+                    <button type="submit" class="">Search</button>
+                </form>
+            </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                   
+                        <a class="a color sign-in" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                    
+
+                }else{
+                    <a class="a color sign-in" href="/Account/Login">LogIn</a>
+                }
+
+                
+        </div>
+    </nav>
+    </header>
+   
+        
+            @RenderBody()            
+            
+      
+        <br />
+        <br />
+    <div class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="/images/logo.png" alt="Movflix Logo" />
+
+                </div>
+                <ul class="footer-links">
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                    <li><a href="#">Privacy</a></li>
+                </ul>
+                <ul class="footer-social">
+                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fab fa-pinterest"></i></a></li>
+                    <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="/js/script.js"></script>
+    
+    @await RenderSectionAsync("Scripts", required: false)
+    
+</body>
+</html>

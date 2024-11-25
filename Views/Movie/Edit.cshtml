@@ -1,0 +1,123 @@
+﻿@model ETickets.ViewModel.MovieVM
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Your Page Title</title>
+        <!-- Include any external CSS files -->
+        <link rel="stylesheet" href="/css/New.css">
+        <link rel="stylesheet" href="/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-KYd0BKFip0N3ZWgJfKcxKz4VqOen+LeThInO+RE4BwZZ/zByMmZX5DvduBddajVoz/SqLxhGS+mra2TcdWVrsQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    </head>
+<body class="background" style="margin-top:110px;">
+        <div class="ms-4">
+        
+            <form asp-controller="Movie" asp-action="SaveEdit" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <h4>
+                        <label asp-for="Name" class="control-label color"></label>
+                    </h4>
+                    <input asp-for="Name" class="form-control item-background w-50 white-on-focus" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <h4>
+                    <label asp-for="Description" class="control-label color"></label>
+                    </h4>
+                    <input asp-for="Description" class="form-control item-background w-50 white-on-focus" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <h4>
+                    <label asp-for="Price" class="control-label color"></label>
+                    </h4>
+                    <input asp-for="Price" class="form-control item-background w-50 white-on-focus" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <h4>
+                    <label asp-for="ImgUrl" class="control-label color"></label>
+                    </h4>
+                <input asp-for="ImgUrl" class="form-control item-background w-50 white-on-focus" />
+                    <span asp-validation-for="ImgUrl" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <h4>
+                    <label asp-for="TrailerUrl" class="control-label color"></label>
+                    </h4>
+                <input asp-for="TrailerUrl" class="form-control item-background w-50 white-on-focus" />
+                    <span asp-validation-for="TrailerUrl" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <h4>
+                    <label asp-for="StartDate" class="control-label color"></label>
+                    </h4>
+                    <input asp-for="StartDate" class="form-control item-background w-50 white-on-focus" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <h4>
+                    <label asp-for="EndDate" class="control-label color"></label>
+                    </h4>
+                    <input asp-for="EndDate" class="form-control item-background w-50 white-on-focus" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <h4>
+                    <label asp-for="CategoryId" class="control-label color"></label>
+                    </h4>
+                <select class="form-select  item-background w-50 white-on-focus" name="CategoryId">
+                    @foreach (var item in ViewBag.listOfCategories)
+                    {
+                        if (Model.CategoryId == item.Id)
+                        {
+                            <option value="@item.Id" selected>@item.Name</option>
+                        }
+
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+                <br />
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <h4>
+                    <label asp-for="CinemaId" class="control-label color">Cinema</label>
+                    </h4>
+                <select class="form-select item-background w-50 white-on-focus" name="CinemaId">
+                    @foreach (var item in ViewBag.listOfCinema)
+                    {
+                        if (Model.CinemaId == item.Id)
+                        {
+                            <option value="@item.Id" selected>@item.Name</option>
+                        }
+
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+                    <span asp-validation-for="CinemaId" class="text-danger"></span>
+                </div>
+                <br />
+
+                <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-outline-light btn-background" />
+                </div>
+            </form>
+
+
+        </div>  
+    
+    </body>
+</html>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

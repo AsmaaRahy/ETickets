@@ -1,0 +1,119 @@
+﻿@using ETickets.Data.Enums
+@model List<ETickets.Models.Movie>
+
+@{
+    ViewBag.Title = "Search Results";
+}
+
+<html>
+    <head>
+
+    </head>
+    <body class="background" style="margin-top:110px;">
+        <div class="container">
+            <h2>Search Results</h2>
+            <br />
+
+@if (!string.IsNullOrEmpty(ViewBag.Message))
+{
+    <p>@ViewBag.Message</p>
+}
+
+@if (Model != null && Model.Any())
+{
+            <div class="row d-flex justify-content-between">
+
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    var movie = Model[i];
+                    <div class="col-lg-5 col-sm-6 cat-tw">
+                        <div class="movie-item mb-60 m-auto">
+                            <div class="movie-poster image">
+                                <a href="/Movie/Details/@Model[i].Id">
+                                    <img src="~/images/movies/@Model[i].ImgUrl" alt="" class="image">
+                                </a>
+                            </div>
+
+                            <div class="movie-content text-light">
+                                <div class="top">
+                                    <h5 class="title">
+                                        <p class="text-light">@movie.Name</p>
+                                        <span class="cat color">@movie.MovieStatus</span> <br />
+                                    </h5>
+
+                                    <div>
+                                        <a href="/Category/ShowAll/@movie.CategoryId" class="a text-light line-height">@movie?.Category?.Name</a> <br />
+                                        <a href="/Cinema/ShowAll/@movie.CinemaId" class="text-light a line-height">@movie?.Cinema?.Name Cinema</a>
+                                    </div>
+
+
+
+                                    <br />
+
+                                    <span class="line-height">@Model[i].StartDate  <i class="fa-solid fa-calendar-check color"></i></span><br />
+                                    <span class="line-height">@Model[i].EndDate  <i class="fa-solid fa-calendar-xmark color"></i></span>
+
+                                </div>
+                                <br />
+                                <div class="d-flex align-items-center w-75">
+
+                                    @if (User.IsInRole("Admin") || User.IsInRole("User"))
+                                    {
+                                        <div class="bottom">
+
+                                            @{
+                                                @switch (movie.MovieStatus)
+                                                {
+                                                    case MovieStatus.Expired:
+                                                        <a href="#" class="btn btn-outline-light btn-booking disabled ">Book Ticket</a>
+                                                        break;
+                                                    case MovieStatus.Upcoming:
+                                                        <a href="#" class="btn btn-outline-light  btn-booking">Book Ticket</a>
+                                                        break;
+                                                    case MovieStatus.Available:
+                                                        <a href="#" class="btn btn-outline-light  btn-booking">Book Ticket</a>
+
+                                                        break;
+                                                }
+                                            }
+                                        </div>
+                                    }
+                                    else if(User.Identity.IsAuthenticated== null)
+                                    {
+                                        <a href="/Account/Login" class="btn btn-outline-light btn-booking">BooK Ticket</a>
+                                    }
+                                    else{
+                                        <a href="/Account/Login" class="btn btn-outline-light btn-booking">BooK Ticket</a>
+                                    }
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <div class="movie-icons text-end">
+
+                                            <a href="/Movie/Edit/@Model[i].Id" class="btn btn-outline-light color icons"><i class="fa-regular fa-pen-to-square btn-edit"></i></a>
+                                            <a href="/Movie/Delete/@Model[i].Id" class="btn btn-outline-light color icons"><i class="fa-regular fa-trash-can btn-del"></i></a>
+                                        </div>
+                                    }
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="ms-5">
+                    <a href="/Movie/CreateNew" class="btn btn-outline-light create-btn">Create <i class="fa-solid fa-circle-plus"></i></a>
+                </div>
+            }
+    
+}
+else
+{
+    <p>No results found.</p>
+}
+        </div>
+    </body>
+</html>

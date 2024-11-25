@@ -1,0 +1,52 @@
+﻿@model List<Category>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <!-- Include any external CSS files -->
+    <link rel="stylesheet" href="/css/New.css">
+    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-KYd0BKFip0N3ZWgJfKcxKz4VqOen+LeThInO+RE4BwZZ/zByMmZX5DvduBddajVoz/SqLxhGS+mra2TcdWVrsQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+</head>
+<body class="background" style="padding-top:100px;">
+    <div class="container">
+        <h2 class="custom-text-color">Categories</h2>
+    <div class="my-3 p-3 rounded shadow-sm">
+        @{
+            foreach(var item in Model)
+            {
+                <div class="d-flex text-body-secondary pt-3">
+                    <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="text-light w-50">@item.Name</h5>
+                            <div class="">
+                                <a href="/Category/ShowAll/@item.Id" class="btn btn-outline-light btn-background">All Movies</a>
+                            </div>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <div>
+                                    <a href="/Category/Edit/@item.Id" class="btn btn-outline-light color"><i class="fa-regular fa-pen-to-square btn-edit"></i></a>
+                                    <a href="/Category/Delete/@item.Id" class="btn btn-outline-light color"><i class="fa-regular fa-trash-can btn-del"></i></a>
+                                </div>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            }
+        }
+
+
+
+    </div>
+    @if (User.IsInRole("Admin"))
+    {
+        <a href="/Category/CreateNew" class="btn btn-outline-light btn-background">Create <i class="fa-solid fa-circle-plus"></i></a>
+    }
+    </div>
+</body>
+</html>

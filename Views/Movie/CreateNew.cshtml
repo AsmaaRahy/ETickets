@@ -1,0 +1,120 @@
+﻿@model ETickets.ViewModel.MovieVM
+
+@{
+    ViewData["Title"] = "CreateNew";
+}
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <!-- Include any external CSS files -->
+    <link rel="stylesheet" href="/css/New.css">
+    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-KYd0BKFip0N3ZWgJfKcxKz4VqOen+LeThInO+RE4BwZZ/zByMmZX5DvduBddajVoz/SqLxhGS+mra2TcdWVrsQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+</head>
+<body class="background" style="margin-top:110px;">
+    <div class="ms-4">
+    <form method="post" action="/Movie/SaveNew">
+        <div class="form-group">
+            <h4>
+                <label for="Name-name" class="color">Name</label>
+            </h4>
+            <input type="text" class="form-control item-background w-50 white-on-focus" asp-for="Name" placeholder="Enter Name">
+            <span asp-validation-for="Name" class="text-danger"></span>
+            <br />
+            <h4>
+                <label for="Description" class="color text-light">Description</label>
+            </h4>
+            <input type="text" class="form-control item-background w-50 white-on-focus" asp-for="Description" placeholder="Enter Description">
+            <span asp-validation-for="Description" class="text-danger"></span>
+            <br />
+            <h4>
+                <label for="Price" class="color">Price</label>
+            </h4>
+            <input type="text" class="form-control item-background w-50 white-on-focus" asp-for="Price" placeholder="Enter Ticket Price">
+            <span asp-validation-for="Price" class="text-danger"></span>
+            <br />
+            <h4>
+                <label asp-for="StartDate" class="control-label color"></label>
+            </h4>
+            <input asp-for="StartDate" class="form-control item-background w-50 white-on-focus" />
+            <span asp-validation-for="StartDate" class="text-danger"></span>
+            <br />
+            <h4>
+                <label asp-for="EndDate" class="control-label color"></label>
+            </h4>
+            <input asp-for="EndDate" class="form-control item-background w-50 white-on-focus" />
+            <span asp-validation-for="EndDate" class="text-danger"></span>
+            <br />
+            <h4>
+                <label for="ImgUrl" class="color">Image</label>
+            </h4>
+            <input type="file" class="form-control item-background w-50 white-on-focus" asp-for="ImgUrl">
+            <span asp-validation-for="ImgUrl" class="text-danger"></span>
+            <br />
+            <h4>
+                <label for="TrailerUrl" class="color">TrailerUrl</label>
+            </h4>
+            <input type="text" class="form-control item-background w-50 white-on-focus" asp-for="TrailerUrl">
+            <span asp-validation-for="TrailerUrl" class="text-danger"></span>
+            <br />
+            <h4>
+            <label for="CategoryId" class="color">Category</label>
+            </h4>
+            <select class="form-select  item-background w-50 white-on-focus" name="CategoryId">
+                @foreach (var item in ViewBag.listOfCategories)
+                {
+                    if (Model.CategoryId == item.Id)
+                    {
+                        <option value="@item.Id" selected>@item.Name</option>
+                    }
+
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+            <br />
+            <h4>
+            <label for="CinemaId" class="color">Cinema</label>
+            </h4>
+            <select class="form-select  item-background w-50 white-on-focus" name="CinemaId">
+                @foreach (var item in ViewBag.listOfCinema)
+                {
+                    if (Model.CinemaId == item.Id)
+                    {
+                        <option value="@item.Id" selected>@item.Name</option>
+                    }
+
+                    <option value="@item.Id">@item.Name</option>
+                }
+                </select>
+   <br />
+                
+                   
+                        <h4>
+                        <label class="color">Actors:</label>
+                    </h4>
+                            @foreach (var actor in ViewBag.listOfActors)
+                                {
+                            <div class="checkbox text-light">
+                                <input type="checkbox" name="SelectedActorIds" value="@actor.Id">
+                                    @actor.FirstName @actor.LastName
+                            </div>
+                                }
+
+                                <br />
+
+
+
+                <button type="submit" class="btn btn-outline-light btn-background" id="submitBtn">Save</button>
+    </form>
+    </div>
+</body>
+</html>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

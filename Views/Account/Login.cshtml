@@ -1,0 +1,62 @@
+﻿@model ETickets.ViewModel.UserLoginVM
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <!-- Include any external CSS files -->
+    <link rel="stylesheet" href="/css/New.css">
+    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-KYd0BKFip0N3ZWgJfKcxKz4VqOen+LeThInO+RE4BwZZ/zByMmZX5DvduBddajVoz/SqLxhGS+mra2TcdWVrsQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    </head>
+<body class="background" style="margin-top:100px;">
+    
+        <div class="ms-4">
+        <h1 style="color:white;">Login</h1>
+        <form asp-action="Login">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <h4>
+                    <label asp-for="UserName" class="control-label color"></label>
+                </h4>
+                <input asp-for="UserName" class="form-control item-background w-50 white-on-focus" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <h4>
+                    <label asp-for="Password" class="control-label color"></label>
+                    </h4>
+                <input asp-for="Password" class="form-control item-background w-50 white-on-focus" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-group form-check">
+
+                <label class="form-check-label color">
+                        <input class="form-check-input" asp-for="RememberMe" /> @Html.DisplayNameFor(model => model.RememberMe)
+                    </label>
+                </div>
+                <br />
+                <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-outline-light btn-background" />
+                </div>
+            </form>
+            <br />
+        <div>
+            <a asp-action="Registration" style="color:white; ">Create New Account</a>
+        </div>
+        </div>
+
+    
+    </body>
+</html>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

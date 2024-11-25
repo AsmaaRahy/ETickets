@@ -1,0 +1,113 @@
+﻿@model ETickets.Models.Movie
+
+@{
+    ViewData["Title"] = "Details";
+}
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <!-- Include any external CSS files -->
+    <link rel="stylesheet" href="/css/New.css">
+    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-KYd0BKFip0N3ZWgJfKcxKz4VqOen+LeThInO+RE4BwZZ/zByMmZX5DvduBddajVoz/SqLxhGS+mra2TcdWVrsQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+</head>
+<body class="background2" style="margin-top:100px;">
+
+<div class="container1">
+    <div class=" d-flex justify-content-evenly position-relative h-100">
+            <div class="col-xl-3 col-lg-4">
+                <div class="details-movie-poster">
+                    
+                        <img src="~/images/movies/@Model.ImgUrl" alt="" class="details-img">
+                        <a href="#" class="popup-video">
+                            <img src="~/images/movies/play_icon.png" alt="">
+                        </a>
+                    
+
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-8">
+                <div class="movie-details-content h-100">
+                     <h5 class="color">New Episodes</h5>
+                     <h2 class="text-light">
+                        @Model.Name
+                     </h2>
+                     <br />
+                    <div class="time">
+                        <span class="date line-height text-light">@Model.StartDate  <i class="fa-solid fa-calendar-check color"></i></span>
+                        <span class="date line-height text-light">@Model.EndDate  <i class="fa-solid fa-calendar-xmark color"></i></span>
+                        <div class="status">
+                        <span class="date line-height text-light color">@Model.MovieStatus</span>
+                        </div>
+                    </div>
+                    <p class="second-text">@Model.Description</p>
+                     <div class="banner-meta">
+                                 <span class="details-span">@Model.Price EGP</span><br /> <br />
+                                 <a href="/#" class="a text-light">@Model.Category.Name</a> <br />
+                                 <a href="/#" class="a text-light">@Model.Cinema.Name Cinema</a>
+                             
+                     </div>
+                     <br />
+            
+                <div class="movie-details-prime ">
+
+                        <div class="d-flex w-50 justify-content-between">
+                            @{
+                                foreach (var actor in Model.Actors)
+                                {
+                                    <div class="text-light w-25">
+
+                                        <a href="#"><img src="~/images/cast/@actor.ProfilePicture" alt="" /></a>
+                                        <br />
+                                        @actor.FirstName @actor.LastName
+                                        
+                                    </div>
+                                }
+                            }
+
+                            
+
+                   </div>
+                   <br />
+               
+                    <div class="watch text-light d-block">
+                            <a href="" class="popup-video"></a>
+                            @if (!string.IsNullOrEmpty(Model.TrailerUrl))
+                            {
+                                var videoId = Model.TrailerUrl.Split('/').LastOrDefault().Split('?').FirstOrDefault(); // Extract video ID
+                                var embedUrl = $"https://www.youtube.com/embed/{videoId}";
+                                <iframe width="200" height="115" src="@embedUrl" title="YouTube video player"></iframe>
+                            }
+
+                    </div>
+                        </div>
+                        </div><br /> <br /> <br /> <br /> <br />
+                <div class="bottom text-start">
+
+
+
+                <br />
+
+                @{
+                    @if (Model.MovieStatus == 0)
+                    {
+                        <a href="#" class="btn btn-outline-light btn-booking disabled ">Book Ticket</a>
+
+                    }
+                    else
+                    {
+                        <a href="#" class="btn btn-outline-light  btn-booking">Book Ticket</a>
+                    }
+
+                }
+                </div> <br /><br />
+                        </div>
+    </div>
+</div>
+</body>
+</html>
